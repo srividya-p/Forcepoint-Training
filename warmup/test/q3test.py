@@ -14,7 +14,6 @@ class ArrFrequencyTestCase(unittest.TestCase):
         self.assertEqual(firstSecondMax([8, 8, 8, 8, 8, 8]), [8, None])
         self.assertEqual(firstSecondMax([-2, -3, -2, -1, -1, 0, 0]), [0, -1])
         self.assertEqual(firstSecondMax([MIN_VALUE, MIN_VALUE, MAX_VALUE]), [MAX_VALUE, MIN_VALUE])
-       
-        
+             
 if __name__ == "__main__":
     unittest.main()

@@ -11,7 +11,6 @@ class ArrFrequencyTestCase(unittest.TestCase):
         self.assertEqual(numberOfOccurences([1, 1, 1, 1, 1, 100, 100, 2, 2]), {1: 5, 100: 2, 2: 2})
         self.assertEqual(numberOfOccurences([2]), {2: 1})
         self.assertEqual(numberOfOccurences([0, 0, 0, 0, 0, 0, 0]), {0: 7})
-       
-        
+         
 if __name__ == "__main__":
     unittest.main()
