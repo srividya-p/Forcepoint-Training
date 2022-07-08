@@ -4,9 +4,9 @@ sys.path.insert(0, '../code')
 import unittest
 from q4 import roundOff
 
-class ArrFrequencyTestCase(unittest.TestCase):
+class RoundOffTestCase(unittest.TestCase):
 
-    def test_arr_frequency(self):
+    def test_round_off(self):
         self.assertEqual(roundOff(5.1), 5) 
         self.assertEqual(roundOff(4.5), 5)
         self.assertEqual(roundOff(3.6), 4)
