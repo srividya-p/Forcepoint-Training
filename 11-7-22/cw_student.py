@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 
 class Student():
     def __init__(self, firstName, lastName, fullName,
