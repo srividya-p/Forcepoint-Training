@@ -1,30 +1,63 @@
 from employee import Employee
+from staff import Staff
+from login_system import LoginSystemInterface
 
 class Doctor(Employee):
     allDoctors = []
-    def __init__(self, doctorUserName, password, fullName, dob, age, gender, address, isAdmin, salary, funds, yearsOfExp, doctorType):
-        super().__init__(doctorUserName, password, fullName, dob, age, gender, address, isAdmin, salary, funds)
+    def __init__(self, fullName, dob, gender, address, isAdmin, salary, funds, yearsOfExp, doctorType, authorizer = LoginSystemInterface):
+        super().__init__(fullName, dob, gender, address, isAdmin, salary, funds, authorizer)
         self.yearsOfExp = yearsOfExp
         self.doctorType = doctorType
+    
+    @staticmethod
+    def findDoctor(doctorUserName):
+        for doctor in Doctor.allDoctors:
+            if doctor.authorizer.getUserName() == doctorUserName and doctor.isExists:
+                return True, doctor
+        return False, None
 
     @staticmethod
-    def createDoctor(doctorUserName, password, fullName, dob, age, gender, address, salary, funds, yearsOfExp, doctorType):
+    def createDoctor(fullName, dob, gender, address, salary, funds, yearsOfExp, doctorType, authorizer):
         """Admin uses this method to create a doctor"""
-        newDoctor = Doctor(doctorUserName, password, fullName, dob, age, gender, address, False, salary, funds, yearsOfExp, doctorType)
+        doctorFound, _ = Doctor.findDoctor(authorizer.getUserName())
+        if doctorFound:
+            print('This doctor already exists.')
+            return
+        newDoctor = Doctor(fullName, dob, gender, address, salary, funds, yearsOfExp, doctorType, authorizer)
         Doctor.allDoctors.append(newDoctor)
         return newDoctor
 
-    def readDoctor(self, doctorUserName):
+    @staticmethod
+    def readDoctor(doctorUserName):
         """Admin uses this method to read a doctor"""
-        pass
+        doctorFound, doctor = Doctor.findDoctor(doctorUserName)
+        if not doctorFound:
+            print('This doctor does not exist.')
+            return
+        print(f"Doctor - {doctor.fullName} {doctor.gender} {doctor.address} {doctor.doctorType} {doctor.yearsOfExp}")
 
-    def editDoctor(self, doctorUserName, property, newValue):
+    @staticmethod
+    def editDoctor(doctorUserName, propertyName, newValue):
         """Admin uses this method to edit a doctor"""
-        pass
+        doctorFound, doctor = Doctor.findDoctor(doctorUserName)
+        if not doctorFound:
+            print("This doctor does not exist.")
+            return
+        
+        oldValue = str(getattr(doctor, propertyName))
+        setattr(doctor, propertyName, newValue)
+        print(doctor.fullName+"'s "+propertyName+" changed from "+oldValue
+                +" to "+str(getattr(doctor, propertyName)))
 
-    def deleteDoctor(self, doctorUserName):
+    @staticmethod
+    def deleteDoctor(doctorUserName):
         """Admin uses this method to delete a doctor"""
-        pass 
+        doctorFound, doctor = Doctor.findDoctor(doctorUserName)
+        if not doctorFound:
+            print("This doctor does not exist.")
+            return
+
+        doctor.isExists = False
 
     def handleAppointment(self, doctorUserName): 
         """Handle an appointment for a Patient"""
@@ -40,4 +73,8 @@ class Doctor(Employee):
 
     def assignStaffTask(self, staffUsername, task):
         """Assign a task to a hospital staff member"""
-        pass
+        isStaffPresent, staff = Staff.findStaff(staffUsername)
+        if not isStaffPresent:
+            print('This staff does not exist.')
+            return
+        staff.addDoctorTask(self.authorizer.getUserName(), task)

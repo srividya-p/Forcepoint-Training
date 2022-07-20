@@ -1,0 +1,29 @@
+Build class diagram with facade
+2 players
+52 cards in a deck
+FACADE
+
+starts with P1 - at any turn 2 options
+ - draw card - one card from deck selected at random
+ - skip turn
+
+card no J/K/Q = 10 A = 1 or 11(changable) 2-10 same
+
+ex P1 picks 8(SP) score is 8
+P2 picks 10(SP) score is 10
+
+on picking a new card value is added to previous card
+
+Game end - either of player gets exactly 21 points
+or opponent crosses 21
+both players skip turn the one with more points one
+both players skip turn equal score, draw
+card selection is random
+
+Deck can have draw card method?
+and player will call this
+
+Deck
+Card
+Player
+Game
