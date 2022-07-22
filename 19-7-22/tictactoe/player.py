@@ -1,6 +1,3 @@
-from symtable import Symbol
-
-
 from board import Board
 
 class Player:
@@ -10,6 +7,8 @@ class Player:
 
     def placeMove(self, cell):
         if cell.isMarked():
-            return False, "Position occupied."
+            print("Position occupied.")
+            return False
         cell.symbol = self.symbol
-        return True, "Cell marked."
+        print("Cell marked.")
+        return True

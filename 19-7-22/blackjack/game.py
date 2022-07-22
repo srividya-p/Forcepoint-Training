@@ -35,8 +35,7 @@ class Game:
         while not isGameEnd:
             if self.turn == 'A':
                 self.playerA.currentChoice = input("Player A choice = ")
-                if self.playerA.currentChoice == 's':
-                    pass
+                if self.playerA.currentChoice == 's': pass
                 elif self.playerA.currentChoice == 'd':
                     card = self.playerA.updatePoints(self.deck.drawCard())
                     print(f"{card.cardSymbol} of {card.suite} was drawn.")
@@ -45,8 +44,7 @@ class Game:
                     continue
             elif self.turn == 'B':
                 self.playerB.currentChoice = input("Player B choice = ")
-                if self.playerB.currentChoice == 's':
-                    pass
+                if self.playerB.currentChoice == 's': pass
                 elif self.playerB.currentChoice == 'd':
                     card = self.playerB.updatePoints(self.deck.drawCard())
                     print(f"{card.cardSymbol} of {card.suite} was drawn.")

@@ -9,6 +9,7 @@ class Game:
         self.playerO = playerO
         self.board = Board.createBoard()
         self.currentSymbol = 'x'
+        self.i, self.j = 0, 0
 
     @staticmethod
     def createGame(playerX = Player('player1', 'x'), playerO = Player('player2', 'o')):
@@ -19,41 +20,36 @@ class Game:
         game = Game(playerX, playerO)
         return game
 
-    #UPDATE
-    # def play(self):
-    #     while True:
-    #         pass
+    def acceptInputAndValidate(self, turn):
+        print(f"Player {turn} Moves = ", end = " ")
+        self.i, self.j = map(int, input().split(' '))
+        if self.i<0 or self.i>2 or self.j<0 or self.j>2: 
+            print('Incorrect index.')
+            return False
+        return True
 
     def startGame(self):
         isGameEnd, winner = False, None
         self.board.printBoard()
+        
         while(not isGameEnd):
             if self.currentSymbol == 'x':
-                print("Player X Moves = ", end = " ")
-                i, j = map(int, input().split(' '))
-                if i<0 or i>2 or j<0 or j>2: 
-                    print('Incorrect index.')
-                    continue
-                isPlaced, message = self.playerX.placeMove(self.board.cells[i][j])
-                print(message)
+                isInputSet = self.acceptInputAndValidate('X')
+                if not isInputSet: continue
+                isPlaced = self.playerX.placeMove(self.board.cells[self.i][self.j])
                 if not isPlaced: continue
                 self.board.printBoard()
             elif self.currentSymbol == 'o':
-                print("Player O Moves = ", end = " ")
-                i, j = map(int, input().split(' '))
-                if i<0 or i>2 or j<0 or j>2: 
-                    print('Incorrect index.')
-                    continue
-                isPlaced, message = self.playerO.placeMove(self.board.cells[i][j])
-                print(message)
+                isInputSet = self.acceptInputAndValidate('O')
+                if not isInputSet: continue
+                isPlaced = self.playerO.placeMove(self.board.cells[self.i][self.j])
                 if not isPlaced: continue
                 self.board.printBoard()
+            
             self.currentSymbol = 'o' if self.currentSymbol == 'x' else 'x'
             isGameEnd, winner = self.board.isWinningStateReached()
 
         print(f"Winner is {self.playerX.userName if winner == 'x' else self.playerO.userName} {winner}")
 
 g = Game.createGame()
-# g.startGame()
-
-g1 = Game.createGame()
+g.startGame()
