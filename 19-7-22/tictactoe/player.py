@@ -8,5 +8,8 @@ class Player:
         self.userName = userName
         self.symbol = symbol
 
-    def placeMove(self, i, j, board):
-        return board.setCell(i, j, self.symbol)
+    def placeMove(self, cell):
+        if cell.isMarked():
+            return False, "Position occupied."
+        cell.symbol = self.symbol
+        return True, "Cell marked."

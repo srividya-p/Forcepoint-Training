@@ -38,19 +38,21 @@ class Game:
                 if self.playerA.currentChoice == 's':
                     pass
                 elif self.playerA.currentChoice == 'd':
-                    card = self.playerA.selectCard(self.deck)
+                    card = self.playerA.updatePoints(self.deck.drawCard())
                     print(f"{card.cardSymbol} of {card.suite} was drawn.")
                 else:
                     print('Invalid choice.')
+                    continue
             elif self.turn == 'B':
                 self.playerB.currentChoice = input("Player B choice = ")
                 if self.playerB.currentChoice == 's':
                     pass
                 elif self.playerB.currentChoice == 'd':
-                    card = self.playerB.selectCard(self.deck)
+                    card = self.playerB.updatePoints(self.deck.drawCard())
                     print(f"{card.cardSymbol} of {card.suite} was drawn.")
                 else:
                     print('Invalid choice.')
+                    continue
             
             self.turn = 'B' if self.turn == 'A' else 'A'
             print(f"Score A={self.playerA.getPoints()} B={self.playerB.getPoints()}\n")

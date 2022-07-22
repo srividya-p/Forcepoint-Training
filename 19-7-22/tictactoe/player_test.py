@@ -12,7 +12,7 @@ def test_placeMove():
         [Cell('x'), Cell('o'), Cell('o')]
     ]
 
-    assert player.placeMove(0, 0, board) == (False, "Position occupied.")
+    assert player.placeMove(board.cells[0][0]) == (False, "Position occupied.")
 
     board.cells = [
         [Cell('_'), Cell('o'), Cell('x')],
@@ -20,4 +20,4 @@ def test_placeMove():
         [Cell('x'), Cell('o'), Cell('o')]
     ]
 
-    assert player.placeMove(0, 0, board) == (True, "Cell marked.")
+    assert player.placeMove(board.cells[0][0]) == (True, "Cell marked.")

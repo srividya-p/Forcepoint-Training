@@ -56,12 +56,6 @@ class Board:
                     return False
         return True
 
-    def setCell(self, i, j, symbol):
-        if self.cells[i][j].isMarked():
-            return False, "Position occupied."
-        self.cells[i][j].symbol = symbol
-        return True, "Cell marked."
-
     def getCell(self, i, j):
         return self.cells[i][j].symbol
 
